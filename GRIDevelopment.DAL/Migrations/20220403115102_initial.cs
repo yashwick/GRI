@@ -3,64 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GRIDevelopment.DAL.Migrations
 {
-    public partial class Suppliers : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_SupplierReg",
-                table: "SupplierReg");
-
-            migrationBuilder.DropColumn(
-                name: "Supplier_ID",
-                table: "SupplierReg");
-
-            migrationBuilder.DropColumn(
-                name: "Sup_Address",
-                table: "SupplierReg");
-
-            migrationBuilder.DropColumn(
-                name: "Sup_Contact",
-                table: "SupplierReg");
-
-            migrationBuilder.DropColumn(
-                name: "Supplier_Name",
-                table: "SupplierReg");
-
-            migrationBuilder.RenameTable(
-                name: "SupplierReg",
-                newName: "Suppliers");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Suppliers",
-                nullable: false,
-                defaultValue: 0)
-                .Annotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<string>(
-                name: "SupAddress",
-                table: "Suppliers",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<int>(
-                name: "SupContact",
-                table: "Suppliers",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "SupplierName",
-                table: "Suppliers",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Suppliers",
-                table: "Suppliers",
-                column: "Id");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -98,6 +44,56 @@ namespace GRIDevelopment.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    customer_name = table.Column<string>(nullable: false),
+                    customer_address = table.Column<string>(nullable: false),
+                    customer_contact = table.Column<string>(maxLength: 10, nullable: false),
+                    customer_email = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(nullable: false),
+                    ProductDescription = table.Column<string>(nullable: true),
+                    Application = table.Column<string>(nullable: false),
+                    RimSize = table.Column<string>(nullable: false),
+                    TubeSize = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Suppliers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SupplierName = table.Column<string>(nullable: false),
+                    SupAddress = table.Column<string>(nullable: true),
+                    SupContact = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -264,68 +260,19 @@ namespace GRIDevelopment.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Suppliers");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Suppliers",
-                table: "Suppliers");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Suppliers");
-
-            migrationBuilder.DropColumn(
-                name: "SupAddress",
-                table: "Suppliers");
-
-            migrationBuilder.DropColumn(
-                name: "SupContact",
-                table: "Suppliers");
-
-            migrationBuilder.DropColumn(
-                name: "SupplierName",
-                table: "Suppliers");
-
-            migrationBuilder.RenameTable(
-                name: "Suppliers",
-                newName: "SupplierReg");
-
-            migrationBuilder.AddColumn<long>(
-                name: "Supplier_ID",
-                table: "SupplierReg",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L)
-                .Annotation("SqlServer:Identity", "1, 1");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Sup_Address",
-                table: "SupplierReg",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<long>(
-                name: "Sup_Contact",
-                table: "SupplierReg",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Supplier_Name",
-                table: "SupplierReg",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_SupplierReg",
-                table: "SupplierReg",
-                column: "Supplier_ID");
         }
     }
 }
